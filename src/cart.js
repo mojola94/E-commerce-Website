@@ -2,7 +2,12 @@ function getSavedCart() {
   try {
     const savedCart = JSON.parse(localStorage.getItem("cart") || "[]");
     return savedCart.reduce((cart, item) => {
-      const existingItem = cart.find((cartItem) => cartItem.name === item.name);
+      const existingItem = cart.find(
+        (cartItem) =>
+          cartItem.name === item.name &&
+          (cartItem.size || "L") === (item.size || "L") &&
+          (cartItem.color || "Black") === (item.color || "Black"),
+      );
       if (existingItem) existingItem.quantity += item.quantity;
       else cart.push({ ...item });
       return cart;
@@ -21,9 +26,14 @@ function updateCartBadge() {
   badge.classList.toggle("flex", count > 0);
 }
 
-function changeCartQuantity(productName, change) {
+function changeCartQuantity(productName, change, options = {}) {
   const cart = getSavedCart();
-  const item = cart.find((cartItem) => cartItem.name === productName);
+  const item = cart.find(
+    (cartItem) =>
+      cartItem.name === productName &&
+      (!options.size || (cartItem.size || "L") === options.size) &&
+      (!options.color || (cartItem.color || "Black") === options.color),
+  );
   if (!item) return;
 
   item.quantity += change;
@@ -57,7 +67,14 @@ function renderCartPage() {
       const product = products.find(
         (savedProduct) => savedProduct.name === item.name,
       );
-      return product ? { ...product, quantity: item.quantity } : null;
+      return product
+        ? {
+            ...product,
+            quantity: item.quantity,
+            size: item.size || "L",
+            color: item.color || "Black",
+          }
+        : null;
     })
     .filter(Boolean);
 
@@ -72,15 +89,25 @@ function renderCartPage() {
               <h2 class="truncate font-semibold">${item.name}</h2>
               <button type="button" class="remove-cart-item text-red-500" data-product="${item.name}" aria-label="Remove ${item.name}">×</button>
             </div>
-            <p class="text-xs text-gray-500">Size: Medium</p>
-            <p class="text-xs text-gray-500">Color: White</p>
+            <label class="mt-2 flex items-center gap-2 text-xs text-gray-500">
+              <span>Size:</span>
+              <select class="cart-option rounded border border-gray-200 px-2 py-1 text-black" data-option="size" data-product="${item.name}" data-current-size="${item.size}" data-current-color="${item.color}">
+                ${["S", "M", "L", "XL", "XXL"].map((size) => `<option value="${size}" ${item.size === size ? "selected" : ""}>${size}</option>`).join("")}
+              </select>
+            </label>
+            <label class="mt-2 flex items-center gap-2 text-xs text-gray-500">
+              <span>Color:</span>
+              <select class="cart-option rounded border border-gray-200 px-2 py-1 text-black" data-option="color" data-product="${item.name}" data-current-size="${item.size}" data-current-color="${item.color}">
+                ${["Moss", "Black", "Cream", "Navy"].map((color) => `<option value="${color}" ${item.color === color ? "selected" : ""}>${color}</option>`).join("")}
+              </select>
+            </label>
             <p class="mt-1 font-semibold">$${item.price}</p>
             <div class="mt-2 flex items-center gap-2">
-              <button type="button" class="cart-quantity-button" data-action="decrease" data-product="${item.name}" aria-label="Decrease ${item.name} quantity">
+              <button type="button" class="cart-quantity-button" data-action="decrease" data-product="${item.name}" data-size="${item.size}" data-color="${item.color}" aria-label="Decrease ${item.name} quantity">
                 <img src="./Assests/image/icons8-minus-24.png" alt="Decrease quantity" class="h-5 w-5" />
               </button>
               <span class="min-w-5 text-center">${item.quantity}</span>
-              <button type="button" class="cart-quantity-button" data-action="increase" data-product="${item.name}" aria-label="Increase ${item.name} quantity">
+              <button type="button" class="cart-quantity-button" data-action="increase" data-product="${item.name}" data-size="${item.size}" data-color="${item.color}" aria-label="Increase ${item.name} quantity">
                 <img src="./Assests/image/icons8-plus-24.png" alt="Increase quantity" class="h-5 w-5" />
               </button>
             </div>
@@ -94,7 +121,10 @@ function renderCartPage() {
   list.querySelectorAll(".cart-quantity-button").forEach((button) => {
     const change = button.dataset.action === "increase" ? 1 : -1;
     button.addEventListener("click", () =>
-      changeCartQuantity(button.dataset.product, change),
+      changeCartQuantity(button.dataset.product, change, {
+        size: button.dataset.size,
+        color: button.dataset.color,
+      }),
     );
   });
 
@@ -102,6 +132,41 @@ function renderCartPage() {
     button.addEventListener("click", () =>
       removeFromCart(button.dataset.product),
     );
+  });
+
+  list.querySelectorAll(".cart-option").forEach((select) => {
+    select.addEventListener("change", () => {
+      const cart = getSavedCart();
+      const item = cart.find(
+        (cartItem) =>
+          cartItem.name === select.dataset.product &&
+          (cartItem.size || "L") === select.dataset.currentSize &&
+          (cartItem.color || "Black") === select.dataset.currentColor,
+      );
+      if (!item) return;
+
+      const nextSize =
+        select.dataset.option === "size" ? select.value : item.size;
+      const nextColor =
+        select.dataset.option === "color" ? select.value : item.color;
+      const duplicate = cart.find(
+        (cartItem) =>
+          cartItem !== item &&
+          cartItem.name === item.name &&
+          (cartItem.size || "L") === nextSize &&
+          (cartItem.color || "Black") === nextColor,
+      );
+      if (duplicate) {
+        duplicate.quantity += item.quantity;
+        cart.splice(cart.indexOf(item), 1);
+      } else {
+        item.size = nextSize;
+        item.color = nextColor;
+      }
+      localStorage.setItem("cart", JSON.stringify(cart));
+      renderCartPage();
+      updateCartBadge();
+    });
   });
 
   const subtotal = items.reduce(

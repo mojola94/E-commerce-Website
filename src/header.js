@@ -18,7 +18,7 @@ if (siteHeader) {
           <a href="index.html"><img src="./Assests/image/SHOP.CO.png" alt="SHOP.CO Logo" class="h-6 object-contain md:h-8" /></a>
           <nav class="hidden items-center space-x-6 lg:flex">
             <a href="category.html" class="font-medium text-black hover:text-gray-600">Shop</a>
-            <a href="onsale.html" class="font-medium text-black hover:text-gray-600">On Sale</a>
+            <a href="product.html?name=ONE%20LIFE%20GRAPHIC%20T-SHIRT" class="font-medium text-black hover:text-gray-600">On Sale</a>
             <a href="index.html#new-arrivals" class="font-medium text-black hover:text-gray-600">New Arrivals</a>
             <a href="index.html#brands" class="font-medium text-black hover:text-gray-600">Brands</a>
           </nav>
@@ -45,7 +45,7 @@ if (siteHeader) {
       </div>
       <div class="flex items-center justify-around border-t border-gray-200 bg-gray-50 px-4 py-2.5 text-xs font-medium lg:hidden">
         <a href="category.html">Shop</a>
-        <a href="onsale.html">On Sale</a>
+        <a href="product.html?name=ONE%20LIFE%20GRAPHIC%20T-SHIRT">On Sale</a>
         <a href="index.html#new-arrivals">New Arrivals</a>
         <a href="index.html#brands">Brands</a>
       </div>

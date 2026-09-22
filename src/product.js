@@ -35,10 +35,10 @@ const products = [
     image: "image 7 (1)-Photoroom.png",
   },
   {
-    name: "Courage Graphic T-shirt",
+    name: "ONE LIFE GRAPHIC T-SHIRT",
     category: "tshirt",
-    star: 3.0,
-    price: 145,
+    star: 4.5,
+    price: 260,
     image: "image 8 (1)-Photoroom.png",
   },
   {
@@ -59,47 +59,65 @@ const products = [
 
 function productCard(product) {
   return `
-    <article class="min-w-0 overflow-hidden rounded-lg border border-gray-200 bg-white p-1 md:w-[calc(25%-1.125rem)] md:p-3">
-      <a href="./product.html?name=${encodeURIComponent(product.name)}" aria-label="View ${product.name}">
-        <img src="./Assests/image/${product.image}" alt="${product.name}" class="aspect-square w-full rounded bg-gray-100 object-cover" />
+    <article class="min-w-0 overflow-hidden rounded-lg border border-gray-200 bg-white p-2 md:w-[calc(25%-1.125rem)] md:p-3">
+      <a href="./product.html?name=${encodeURIComponent(product.name)}" aria-label="View ${product.name}" class="block">
+        <img src="./Assests/image/${product.image}" alt="${product.name}" class="aspect-square w-full rounded bg-gray-100 object-cover md:scale-[0.92] md:transform" />
       </a>
-			<h2 class="mt-1 truncate text-[7px] font-semibold md:mt-3 md:text-base">${product.name}</h2>
+      <h2 class="mt-1 truncate text-[7px] font-semibold md:mt-3 md:text-base">${product.name}</h2>
       <div class="mt-0.5 truncate text-[7px] text-orange-500 md:mt-1 md:text-sm" aria-label="Rated ${product.star} out of 5">
         ${ratingStars(product.star)}
         <span class="ml-0.5 text-xs font-bold text-black md:ml-1 md:text-base">${product.star}/5</span>
       </div>
-			<div class="mt-0.5 flex items-center justify-between gap-1 md:mt-1">
+      <div class="mt-2 flex flex-col gap-2 md:mt-2">
         <p class="text-[8px] font-medium md:text-base">$${product.price}</p>
-        <button type="button" class="add-to-cart flex h-10 w-10 shrink-0 items-center justify-center md:h-11 md:w-11" data-product="${product.name}" aria-label="Add ${product.name} to cart" title="Add to cart">
-          <img src="./Assests/image/icons8-add-30.png" alt="" class="h-full w-full object-contain" />
+        <button type="button" class="add-to-cart rounded-full bg-black px-3 py-2 text-[8px] font-semibold text-white transition hover:bg-gray-800 md:px-4 md:py-2.5 md:text-[11px]" data-product="${product.name}" aria-label="Add ${product.name} to cart" title="Add to cart">
+          Add to Cart
         </button>
       </div>
-		</article>
-	`;
+    </article>
+  `;
 }
 
 function ratingStars(rating) {
   return Array.from(
     { length: Math.round(rating) },
     () =>
-      '<img src="./Assests/image/icons8-star-48 (2).png" alt="" class="inline-block h-3 w-3 align-middle md:h-4 md:w-4" />',
+      '<img src="./Assests/image/icons8-star-48 (2).png" alt="" class="inline-block h-3 w-3 align-middle md:h-3.5 md:w-3.5" />',
   ).join("");
 }
 
-function addToCart(productName) {
+function addToCart(productName, options = {}) {
   const cart = getCartItems();
-  const item = cart.find((cartItem) => cartItem.name === productName);
+  const size = options.size || "L";
+  const color = options.color || "Black";
+  const item = cart.find(
+    (cartItem) =>
+      cartItem.name === productName &&
+      (cartItem.size || "Not selected") === size &&
+      (cartItem.color || "Not selected") === color,
+  );
   if (item) item.quantity += 1;
-  else cart.push({ name: productName, quantity: 1 });
+  else cart.push({ name: productName, quantity: 1, size, color });
   localStorage.setItem("cart", JSON.stringify(cart));
   if (typeof updateCartBadge === "function") updateCartBadge();
 }
 
-function increaseCartQuantity(productName) {
+function increaseCartQuantity(productName, options = {}) {
   const cart = getCartItems();
-  const item = cart.find((cartItem) => cartItem.name === productName);
+  const item = cart.find(
+    (cartItem) =>
+      cartItem.name === productName &&
+      (!options.size || cartItem.size === options.size) &&
+      (!options.color || cartItem.color === options.color),
+  );
   if (item) item.quantity += 1;
-  else cart.push({ name: productName, quantity: 1 });
+  else
+    cart.push({
+      name: productName,
+      quantity: 1,
+      size: options.size || "L",
+      color: options.color || "Black",
+    });
   localStorage.setItem("cart", JSON.stringify(cart));
   if (typeof updateCartBadge === "function") updateCartBadge();
 }
@@ -107,7 +125,12 @@ function increaseCartQuantity(productName) {
 function getCartItems() {
   const savedCart = JSON.parse(localStorage.getItem("cart") || "[]");
   return savedCart.reduce((cart, item) => {
-    const existingItem = cart.find((cartItem) => cartItem.name === item.name);
+    const existingItem = cart.find(
+      (cartItem) =>
+        cartItem.name === item.name &&
+        (cartItem.size || "L") === (item.size || "L") &&
+        (cartItem.color || "Black") === (item.color || "Black"),
+    );
     if (existingItem) existingItem.quantity += item.quantity;
     else cart.push({ ...item });
     return cart;
@@ -116,10 +139,13 @@ function getCartItems() {
 
 function wireCartButtons(scope) {
   scope.querySelectorAll(".add-to-cart").forEach((button) => {
-    button.addEventListener("click", () => {
+    button.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
       const productName = button.dataset.product;
       addToCart(productName);
-      window.location.href = `./product.html?name=${encodeURIComponent(productName)}`;
+      if (typeof updateCartBadge === "function") updateCartBadge();
+      window.location.href = "./cart.html";
     });
   });
 }
