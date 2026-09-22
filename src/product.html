@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product - SHOP.CO</title>
+    <link href="./output.css" rel="stylesheet" />
+  </head>
+  <body class="bg-white text-black">
+    <header id="siteHeader"></header>
+
+    <main
+      id="productDetail"
+      class="mx-auto flex max-w-5xl flex-col gap-8 px-6 py-10 md:flex-row md:px-12"
+    ></main>
+    <section id="section2" class="bg-black p-6 md:p-10"></section>
+    <footer id="siteFooter"></footer>
+
+    <script src="./header.js"></script>
+    <script src="./product.js"></script>
+    <script src="./cart.js"></script>
+    <script src="./section2.js"></script>
+    <script src="./footer.js"></script>
+    <script>
+      const productName = new URLSearchParams(window.location.search).get(
+        "name",
+      );
+      const product =
+        products.find((item) => item.name === productName) || products[0];
+      document.title = `${product.name} - SHOP.CO`;
+      document.getElementById("productDetail").innerHTML = `
+        <div class="flex w-full max-w-xs flex-col items-start self-center md:w-1/3">
+          <img src="./Assests/image/${product.image}" alt="${product.name}" class="w-full rounded-xl bg-gray-100 object-contain" />
+        </div>
+        <section class="flex flex-1 flex-col justify-center">
+          <h1 class="text-3xl font-bold md:text-5xl">${product.name}</h1>
+          <p class="mt-3 text-orange-500">${ratingStars(product.star)} <span class="text-xs font-bold text-black md:text-base">${product.star}/5</span></p>
+          <div class="mt-4 flex items-center justify-between gap-4">
+            <p class="text-2xl font-semibold">$${product.price}</p>
+            <div class="flex items-center gap-3">
+              <button id="productMinus" type="button" aria-label="Decrease quantity" class="flex h-10 w-10 items-center justify-center">
+                <img src="./Assests/image/icons8-minus-24.png" alt="Decrease quantity" class="h-6 w-6" />
+              </button>
+              <span id="productQuantity" class="min-w-6 text-center text-lg font-bold">0</span>
+              <button id="productPlus" type="button" aria-label="Increase quantity" class="flex h-10 w-10 items-center justify-center">
+                <img src="./Assests/image/icons8-plus-24.png" alt="Increase quantity" class="h-6 w-6" />
+              </button>
+            </div>
+          </div>
+          <p class="mt-6 text-gray-600">A comfortable, high-quality piece made for everyday style.</p>
+        </section>
+      `;
+
+      const productQuantity = document.getElementById("productQuantity");
+      const updateProductQuantity = () => {
+        const item = getSavedCart().find(
+          (cartItem) => cartItem.name === product.name,
+        );
+        productQuantity.textContent = item?.quantity || 0;
+      };
+
+      document.getElementById("productPlus").addEventListener("click", () => {
+        increaseCartQuantity(product.name);
+        updateProductQuantity();
+      });
+      document.getElementById("productMinus").addEventListener("click", () => {
+        changeCartQuantity(product.name, -1);
+        updateProductQuantity();
+      });
+      updateProductQuantity();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SHOP.CO </title>
+  <link href="./output.css" rel="stylesheet" />
+</head>
+<body class="bg-white font-sans text-black">
+
+  <header>
+    <!-- Top Announcement Bar with Close Button -->
+    <div id="announcementBar" class="relative flex h-10 w-full items-center justify-center bg-black px-4 text-xs md:text-sm">
+      <div class="text-center text-white pr-6">
+        Sign up and get 20% off to your first order. 
+        <a href="category.html" class="underline font-medium ml-1">Sign Up Now</a>
+      </div>
+      <!-- Close Button -->
+      <button 
+        onclick="document.getElementById('announcementBar').style.display='none';" 
+        aria-label="Close announcement" 
+        class="absolute right-4 flex h-6 w-6 items-center justify-center cursor-pointer"
+      >
+        <span class="text-lg font-bold leading-none text-white">X</span>
+      </button>
+    </div>
+
+  </header>
+
+  <div class="main-nav-sticky">
+    <!-- Main Navigation Bar -->
+    <div class="flex flex-nowrap items-center justify-between bg-white px-6 py-6 md:px-12 shadow-sm">
+      
+      <!-- Logo and Nav Items -->
+      <div class="flex items-center space-x-8">
+        <a href="index.html">
+          <img src="./Assests/image/SHOP.CO.png" alt="SHOP.CO Logo" class="h-6 md:h-8 object-contain" />
+        </a>
+
+        <!-- Desktop Navigation Menu -->
+        <nav class="hidden lg:flex items-center space-x-6">
+          <!-- Shop Dropdown -->
+          <div class="relative group">
+            <a href="category.html" class="flex items-center gap-1 text-black hover:text-gray-600 font-medium py-2">
+              Shop
+              <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </a>
+            <!-- Dropdown Menu -->
+            <div class="absolute left-0 mt-0 w-48 bg-white border border-gray-100 rounded-md shadow-lg py-2 hidden group-hover:block z-50">
+              <a href="category.html?type=mens" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Men's Apparel</a>
+              <a href="category.html?type=womens" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Women's Apparel</a>
+              <a href="category.html?type=kids" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Kids Apparel</a>
+              <a href="category.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">All Products</a>
+            </div>
+          </div>
+
+          <a href="onsale.html" class="text-black hover:text-gray-600 font-medium">On Sale</a>
+          <a href="#new-arrivals" class="text-black hover:text-gray-600 font-medium">New Arrivals</a>
+          <a href="#brands" class="text-black hover:text-gray-600 font-medium">Brands</a>
+        </nav>
+      </div>
+
+      <!-- Search Bar -->
+      <form
+        id="searchForm"
+        action="category.html"
+        method="get"
+        class="hidden md:flex items-center gap-2 rounded-full bg-gray-100 px-4 py-2 w-64 lg:w-96 text-black/50 focus-within:ring-1 focus-within:ring-black"
+      >
+        <button
+          type="submit"
+          aria-label="Search products"
+          class="flex h-6 w-6 items-center justify-center cursor-pointer"
+        >
+          <img
+            src="./Assests/image/icons8-search-48.png"
+            class="h-5 w-5 object-contain opacity-60"
+            alt="Search"
+          />
+        </button>
+        <input
+          type="search"
+          name="search"
+          placeholder="Search for products..."
+          id="searchButton"
+          aria-label="Search for a product"
+          class="bg-transparent outline-none w-full text-sm text-black placeholder:text-gray-400"
+        />
+      </form>
+
+      <form
+        action="category.html"
+        method="get"
+        class="flex w-24 shrink items-center gap-1 rounded-full bg-gray-100 px-2 py-1 text-black/50 md:hidden"
+      >
+        <button type="submit" aria-label="Search products" class="flex h-5 w-5 items-center justify-center">
+          <img src="./Assests/image/icons8-search-48.png" alt="Search" class="h-4 w-4 object-contain opacity-60" />
+        </button>
+        <input type="search" name="search" placeholder="Search" aria-label="Search for a product" class="w-full bg-transparent text-xs text-black outline-none placeholder:text-gray-400" />
+      </form>
+
+      <!-- Cart and User Profile Icons -->
+      <div class="flex items-center space-x-4">
+        <a href="cart.html" aria-label="Shopping Cart" class="relative hover:opacity-85">
+          <img src="./Assests/image/icons8-shopping-cart-48.png" alt="Cart" class="w-6 h-6 object-contain" />
+          <span id="cartCount" class="absolute -right-2 -top-2 hidden h-5 min-w-5 items-center justify-center rounded-full bg-black px-1 text-xs text-white">0</span>
+        </a>
+        <a href="profile.html" aria-label="User Profile" class="hover:opacity-85">
+          <img src="./Assests/image/icons8-user-profile-24.png" alt="Profile" class="w-7 h-7 object-contain" />
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Mobile Sub-navigation Menu Bar -->
+    <div class="lg:hidden flex items-center justify-around bg-gray-50 border-t border-gray-200 py-2.5 px-4 text-xs font-medium">
+      <a href="category.html" class="hover:underline">Shop ▾</a>
+      <a href="onsale.html" class="hover:underline">On Sale</a>
+      <a href="#new-arrivals" class="hover:underline">New Arrivals</a>
+      <a href="#brands" class="hover:underline">Brands</a>
+    </div>
+  </div>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="max-w-9xl mx-auto flex flex-col lg:flex-row bg-[#F2F0F1] px-6 lg:px-12 pt-12 items-center justify-between overflow-hidden">
+      
+      <!-- Left Content Column -->
+      <div class="w-full lg:w-1/2 flex flex-col items-start py-1">
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-black tracking-tight leading-none">
+          FIND CLOTHES <br />THAT MATCHES<br />YOUR STYLE
+        </h1>
+        <p class="my-5 text-gray-500 text-sm sm:text-base leading-relaxed">
+          Browse through our diverse range of meticulously crafted garments, designed
+          to bring out your individuality and cater to your sense of style.
+        </p>
+        <a id="shopNow" href="category.html" class="rounded-full bg-black py-4 px-14 text-white text-center font-medium hover:bg-gray-800 transition duration-300 shadow-md">
+          Shop Now
+        </a>
+
+        <!-- Stats Counter Section -->
+        <div class="flex flex-wrap gap-6 sm:gap-8 mt-10 pt-6 border-t border-gray-300/80 w-full">
+          <div>
+            <h2 class="text-2xl sm:text-4xl font-bold text-black">200+</h2>
+            <p class="text-xs sm:text-sm text-gray-500">International Brands</p>
+          </div>
+          <div class="hidden sm:block h-12 w-px bg-gray-300"></div>
+          <div>
+            <h2 class="text-2xl sm:text-4xl font-bold text-black">2,000+</h2>
+            <p class="text-xs sm:text-sm text-gray-500">High-Quality Products</p>
+          </div>
+          <div class="hidden sm:block h-12 w-px bg-gray-300"></div>
+          <div>
+            <h2 class="text-2xl sm:text-4xl font-bold text-black">30,000+</h2>
+            <p class="text-xs sm:text-sm text-gray-500">Happy Customers</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Image Column -->
+      <div class="w-full lg:w-1/2 flex justify-center lg:justify-end mt-8 lg:mt-0 relative">
+        <img 
+          src="./Assests/image/Rectangle 2-Photoroom.png" 
+          alt="Models wearing stylish apparel" 
+          class="max-h-[450px] lg:max-h-[580px] w-auto object-contain" 
+        />
+      </div>
+
+    </section>
+  </main>
+
+      <section id="brands" class="min-h-[180px] bg-black py-8" style="scroll-margin-top: 200px;">
+        <div
+          class="flex flex-col items-center justify-center gap-4 p-3 md:p-10"
+        >
+          <div class="w-full bg-black">
+            <marquee behavior="alternative" direction="right" scrollamount="10" class="block min-h-[100px] w-full">
+              <div class="flex w-max items-center gap-30">
+                <img src="./Assests/image/Group.png" alt="logo" />
+                <img src="./Assests/image/zara-logo-1 1.png" alt="logo" />
+                <img src="./Assests/image/gucci-logo-1 1.png" alt="logo" />
+                <img src="./Assests/image/prada-logo-1 1.png" alt="logo" />
+                <img src="./Assests/image/Group (1).png" alt="logo" />
+              </div>
+            </marquee>
+          </div>
+        </div>
+      </section>
+      <section3 id="new-arrivals" class="p-3 md:p-10">
+        <h2 class="text-center text-sm font-bold md:text-5xl">NEW ARRIVALS</h2>
+        <div
+          id="productGrid"
+          class="mt-4 grid grid-cols-4 gap-2 md:mt-10 md:flex md:flex-wrap md:gap-6"
+        ></div>
+        <div class="mt-4 flex justify-center md:mt-10">
+          <a
+            href="category.html"
+            class="inline-block rounded-full border py-3 px-10 font-medium"
+            >View All</a
+          >
+        </div>
+      </section3>
+
+      <section4 class="p-3 md:p-10">
+        <h2 class="text-center text-sm font-bold md:text-5xl">TOP SELLING</h2>
+        <div
+          id="product2Grid"
+          class="mt-4 grid grid-cols-4 gap-2 md:mt-10 md:flex md:flex-wrap md:gap-6"
+        ></div>
+        <div class="mt-4 flex justify-center md:mt-10">
+          <a
+            href="category.html"
+            class="inline-block rounded-full border py-3 px-10 font-medium"
+            >View All</a
+          >
+        </div>
+      </section4>
+
+      <section class="m-3 rounded-2xl bg-gray-300 p-4 md:m-10 md:p-10 shadow-sm">
+  <!-- Section Title -->
+  <h2 class="text-center text-xl font-extrabold tracking-wide md:text-5xl">
+    BROWSE BY DRESS STYLE
+  </h2>
+
+  <!-- Cards Grid (Asymmetric layout: Casual & Party are wider) -->
+  <div class="mt-6 grid grid-cols-1 gap-4 md:mt-8 md:grid-cols-3 md:gap-6">
+    
+    <!-- Casual Card (Takes 2 columns) -->
+    <div class="relative col-span-2 h-40 w-full overflow-hidden rounded-xl bg-white shadow-sm md:h-64 md:rounded-2xl">
+      <div class="absolute left-4 top-4 z-10 text-base font-bold text-black md:text-2xl">
+        <h1>Casual</h1>
+      </div>
+      <img 
+        src="./Assests/image/image 11-Photoroom.png" 
+        alt="Casual style" 
+        class="h-full w-full object-cover object-top" 
+      />
+    </div>
+
+    <!-- Formal Card (Takes 1 column) -->
+    <div class="relative col-span-1 h-40 w-full overflow-hidden rounded-xl bg-white shadow-sm md:h-64 md:rounded-2xl">
+      <div class="absolute left-4 top-4 z-10 text-base font-bold text-black md:text-2xl">
+        <h1>Formal</h1>
+      </div>
+      <img 
+        src="./Assests/image/image 13-Photoroom.png" 
+        alt="Formal style" 
+        class="h-full w-full object-cover object-top" 
+      />
+    </div>
+
+    <!-- Party Card (Takes 2 columns) -->
+    <div class="relative col-span-2 h-40 w-full overflow-hidden rounded-xl bg-white shadow-sm md:h-64 md:rounded-2xl">
+      <div class="absolute left-4 top-4 z-10 text-base font-bold text-black md:text-2xl">
+        <h1>Party</h1>
+      </div>
+      <img 
+        src="./Assests/image/image 12-Photoroom.png" 
+        alt="Party style" 
+        class="h-full w-full object-cover object-top" 
+      />
+    </div>
+
+    <!-- Gym Card (Takes 1 column) -->
+    <div class="relative col-span-1 h-40 w-full overflow-hidden rounded-xl bg-white shadow-sm md:h-64 md:rounded-2xl">
+      <div class="absolute left-4 top-4 z-10 text-base font-bold text-black md:text-2xl">
+        <h1>Gym</h1>
+      </div>
+      <img 
+        src="./Assests/image/image 14-Photoroom.png" 
+        alt="Gym style" 
+        class="h-full w-full object-cover object-top" 
+      />
+    </div>
+
+  </div>
+</section>
+
+      <section class="bg-[#f2f0f1] p-6 md:p-10">
+        <div class="mb-8 flex items-center justify-between gap-4">
+          <h2 class="text-3xl font-bold md:text-5xl">OUR HAPPY CUSTOMERS</h2>
+          <div class="flex gap-2">
+            <button
+              class="flex h-10 w-10 items-center justify-center rounded-full border border-black/20 bg-white text-xl"
+            >
+              ←
+            </button>
+            <button
+              class="flex h-10 w-10 items-center justify-center rounded-full border border-black/20 bg-black text-xl text-white"
+            >
+              →
+            </button>
+          </div>
+        </div>
+
+        <div class="grid gap-6 md:grid-cols-3">
+          <article
+            class="border rounded-3xl border-gray-300/10 bg-white p-10 shadow-sm"
+          >
+            <div class="mb-4 flex">
+              <span
+                ><img
+                  src="./Assests/image/icons8-star-48 (2).png"
+                  alt="" /></span
+              ><span
+                ><img
+                  src="./Assests/image/icons8-star-48 (2).png"
+                  alt="" /></span
+              ><span
+                ><img
+                  src="./Assests/image/icons8-star-48 (2).png"
+                  alt="" /></span
+              ><span
+                ><img
+                  src="./Assests/image/icons8-star-48 (2).png"
+                  alt="" /></span
+              ><span
+                ><img src="./Assests/image/icons8-star-48 (2).png" alt=""
+              /></span>
+            </div>
+            <div>
+              <h3 class="font-bold">Sarah M.
+               <img src="./Assests/image/Frame (1).png" alt=""/> </h3
+            </div>
+              <!-- <p class="text-sm text-gray-500">Verified Buyer</p> -->
+            </div>
+            <p class="text-lg leading-relaxed text-black/80">
+              "I'm blown away by the quality and style of the <br />
+              clothes I received from Shop.co. From casual <br />
+              wear to elegant dresses, every piece I've bought <br />
+              has exceeded my expectations.”
+            </p>
+          </article>
+
+          <article
+            class="rounded-3xl border border-gray-200/10 bg-white p-6 shadow-sm"
+          >
+            <div class="mb-4 flex">
+              <span
+                ><img
+                  src="./Assests/image/icons8-star-48 (2).png"
+                  alt="" /></span
+              ><span
+                ><img
+                  src="./Assests/image/icons8-star-48 (2).png"
+                  alt="" /></span
+              ><span
+                ><img
+                  src="./Assests/image/icons8-star-48 (2).png"
+                  alt="" /></span
+              ><span
+                ><img
+                  src="./Assests/image/icons8-star-48 (2).png"
+                  alt="" /></span
+              ><span
+                ><img src="./Assests/image/icons8-star-48 (2).png" alt=""
+              /></span>
+            </div>
+            <div>
+              <h3 class="font-bold">Alex K. <img src="./Assests/image/Frame (1).png" alt=""></h3>
+              <!-- <p class="text-sm text-gray-500">Verified Buyer</p> -->
+            </div>
+            <p class="text-lg leading-relaxed text-black/80">
+              “Finding clothes that align with my personal <br />
+              style used to be a challenge until I discovered <br />
+              Shop.co. The range of options they offer is truly <br />
+              remarkable, catering to a variety of tastes and <br />
+              occasions.”
+            </p>
+          </article>
+
+          <article
+            class="rounded-3xl border border-black/10 bg-white p-6 shadow-sm"
+          >
+            <div class="mb-4 flex">
+              <span
+                ><img
+                  src="./Assests/image/icons8-star-48 (2).png"
+                  alt="" /></span
+              ><span
+                ><img
+                  src="./Assests/image/icons8-star-48 (2).png"
+                  alt="" /></span
+              ><span
+                ><img
+                  src="./Assests/image/icons8-star-48 (2).png"
+                  alt="" /></span
+              ><span
+                ><img
+                  src="./Assests/image/icons8-star-48 (2).png"
+                  alt="" /></span
+              ><span
+                ><img src="./Assests/image/icons8-star-48 (2).png" alt=""
+              /></span>
+            </div>
+            <div>
+              <h3 class="font-bold">James M.  <img src="./Assests/image/Frame (1).png" alt=""></h3>
+            </div>
+            <p class="text-lg leading-relaxed text-black/80">
+              "As someone who's always on the lookout for <br />
+              unique fashion pieces, I'm thrilled to have <br />
+              stumbled upon Shop.co. The selection of <br />
+              clothes is not only diverse but also on-point <br />
+              with the latest trends.”
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="section2" class="bg-black p-6 md:p-10">
+        <div
+          class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 rounded-3xl bg-black p-8 text-white md:flex-row"
+        >
+          <h2
+            class="max-w-md text-3xl font-bold uppercase leading-tight md:text-4xl"
+          >
+            STAY UP TO DATE ABOUT <br />
+            OUR LATEST OFFERS
+          </h2>
+
+          <form class="flex w-full max-w-xl flex-col gap-3 md:w-auto md:min-w-[420px]">
+            <div
+              class="flex items-center gap-10 rounded-full bg-white px-4 py-3 text-black"
+            >
+              <img src="./Assests/image/Frame.png" alt="" />
+              <input
+                type="email"
+                placeholder="Enter your email address"
+                class="w-full border-0 bg-transparent text-sm text-black outline-none placeholder:text-black/60"
+              />
+            </div>
+            <button type="submit" class="rounded-full border border-white bg-white px-6 py-3 font-medium text-black">
+              Subscribe to Newsletter
+            </button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer id="siteFooter" class="bg-white p-10 md:p-10">
+      <div class="mx-auto max-w-6xl border-t border-black/10 pt-8">
+        <div class="grid gap-5 flex md:grid-cols-[2.5fr_1fr_1fr_1fr_1fr]">
+          <div>
+            <h3 class="mb-4 text-3xl font-black">
+              <img src="./Assests/image/SHOP.CO.png" alt="" /><br />
+            </h3>
+            <p class="max-w-xs text-sm text-black/60">
+              We have clothes that suit your style and <br />
+              which you’re proud to wear. From <br />
+              everyday basics to standout pieces.
+            </p>
+            <br /><br />
+            <div class="mt-6 flex gap-3">
+              <button
+                class="flex h-9 w-9 items-center justify-center rounded-full bg-white text-sm shadow-sm"
+              >
+                <img src="./Assests/image/1.png" alt="">
+              </button>
+              <button
+                class="flex h-9 w-9 items-center justify-center rounded-full bg-white text-sm shadow-sm"
+              >
+                <img src="./Assests/image/icons8-facebook-50.png" alt="">
+              </button>
+              <button
+                class="flex h-9 w-9 items-center justify-center rounded-full bg-white text-sm shadow-sm"
+              >
+                <img src="./Assests/image/icons8-ig-50.png" alt="">
+              </button>
+              <button
+                class="flex h-9 w-9 items-center justify-center rounded-full bg-white text-sm shadow-sm"
+              >
+                <img src="./Assests/image/4.png" alt="">
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <h4
+              class="mb-4 text-sm font-bold uppercase tracking-wide text-black/70"
+            >
+              Company
+            </h4>
+            <br />
+            <ul class="space-y-2 text-sm text-black/60">
+              <li>About</li>
+              <br />
+              <li>Features</li>
+              <br />
+              <li>Works</li>
+              <br />
+              <li>Career</li>
+              <br />
+            </ul>
+          </div>
+
+          <div>
+            <h4
+              class="mb-4 text-sm font-bold uppercase tracking-wide text-black/70"
+            >
+              Help
+            </h4>
+            <br />
+            <ul class="space-y-2 text-sm text-black/60">
+              <li>Customer Support</li>
+              <br />
+              <li>Delivery Details</li>
+              <br />
+              <li>Terms & Conditions</li>
+              <br />
+              <li>Privacy Policy</li>
+              <br />
+            </ul>
+          </div>
+
+          <div>
+            <h4
+              class="mb-4 text-sm font-bold uppercase tracking-wide text-black/70"
+            >
+              FAQ
+            </h4>
+            <br />
+            <ul class="space-y-2 text-sm text-black/60">
+              <li>Account</li>
+              <br />
+              <li>Manage Deliveries</li>
+              <br />
+              <li>Orders</li>
+              <br />
+              <li>Payments</li>
+              <br />
+            </ul>
+          </div>
+
+          <div>
+            <h4
+              class="mb-4 text-sm font-bold uppercase tracking-wide text-black/70"
+            >
+              Resources
+            </h4>
+            <br />
+            <ul class="space-y-2 text-sm text-black/60">
+              <li>Free ebooks</li>
+              <br />
+              <li>Development Tutorial</li>
+              <br />
+              <li>How to - Blog</li>
+              <br />
+              <li>Youtube Playlist</li>
+              <br />
+            </ul>
+          </div>
+        </div>
+
+        <div
+          class="mt-8 flex flex-col items-center justify-between gap-4 border-t border-black/10 pt-6 text-sm text-black/50 md:flex-row"
+        >
+          <p>Shop.co © 2000-2023, All Rights Reserved</p>
+          <div class="flex gap-3">
+            <span class="rounded bg-white px-2 py-1 text-xs font-bold">
+              <img src="./Assests/image/Badge.png" alt="" />
+            </span>
+            <span class="rounded bg-white px-2 py-1 text-xs font-bold">
+              <img src="./Assests/image/Badge (1).png" alt="" />
+            </span>
+            <span class="rounded bg-white px-2 py-1 text-xs font-bold">
+              <img src="./Assests/image/Badge (2).png" alt="" />
+            </span>
+            <span class="rounded bg-white px-2 py-1 text-xs font-bold">
+              <img src="./Assests/image/Badge (3).png" alt="" />
+            </span>
+            <span class="rounded bg-white px-2 py-1 text-xs font-bold">
+              <img src="./Assests/image/Badge (4).png" alt="" />
+            </span>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="./cart.js"></script>
+    <script src="./section2.js"></script>
+    <script src="./footer.js"></script>
+    <script src="./product.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>

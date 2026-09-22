@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout - SHOP.CO</title>
+    <link href="./output.css" rel="stylesheet" />
+  </head>
+  <body class="bg-white text-black">
+    <header id="siteHeader"></header>
+
+    <main class="mx-auto max-w-3xl px-6 py-10 md:px-10">
+      <p class="mb-4 text-base font-bold">
+        <a href="index.html" class="hover:underline">Home</a>
+        <span class="px-2 text-gray-400">&gt;</span>
+        <a href="cart.html" class="hover:underline">Cart</a>
+        <span class="px-2 text-gray-400">&gt;</span>
+        <span>Checkout</span>
+      </p>
+      <h1 class="mb-6 text-3xl font-black uppercase">Checkout</h1>
+      <form class="grid gap-4 rounded-2xl border border-gray-200 p-6">
+        <input
+          required
+          type="text"
+          placeholder="Full name"
+          class="rounded-lg border px-4 py-3 outline-none"
+        />
+        <input
+          required
+          type="email"
+          placeholder="Email address"
+          class="rounded-lg border px-4 py-3 outline-none"
+        />
+        <input
+          required
+          type="text"
+          placeholder="Delivery address"
+          class="rounded-lg border px-4 py-3 outline-none"
+        />
+        <button type="submit" class="rounded-full bg-black py-3 text-white">
+          Place Order
+        </button>
+      </form>
+    </main>
+
+    <script src="./header.js"></script>
+    <section id="section2" class="bg-black p-6 md:p-10"></section>
+    <footer id="siteFooter"></footer>
+    <script src="./section2.js"></script>
+    <script src="./footer.js"></script>
+  </body>
+</html>

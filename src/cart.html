@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Cart - SHOP.CO</title>
+    <link href="./output.css" rel="stylesheet" />
+  </head>
+  <body class="bg-white text-black">
+    <header id="siteHeader"></header>
+
+    <main class="mx-auto max-w-6xl px-6 py-8 md:px-10">
+      <div class="mb-4 text-base font-bold text-black">
+        <p>
+          <a href="index.html" class="hover:underline">Home</a>
+          <span class="px-2 text-gray-400">&gt;</span>
+          <a href="cart.html" class="hover:underline">Cart</a>
+        </p>
+      </div>
+      <div class="mb-6 flex items-center justify-between gap-4">
+        <h1 class="text-3xl font-black uppercase md:text-4xl">Your Cart</h1>
+        <button
+          id="clearCart"
+          type="button"
+          class="text-lg font-bold hover:underline"
+        >
+          Clear All
+        </button>
+      </div>
+      <div class="grid gap-6 lg:grid-cols-[1.4fr_1fr]">
+        <section class="rounded-2xl border border-gray-200 px-4 md:px-6">
+          <ul id="cartPageItems" class="divide-y divide-gray-200"></ul>
+        </section>
+
+        <aside class="h-fit rounded-2xl border border-gray-200 p-5 md:p-6">
+          <h2 class="mb-5 text-xl font-bold">Order Summary</h2>
+          <div class="space-y-4 text-sm">
+            <div class="flex justify-between">
+              <span class="text-gray-500">Subtotal</span
+              ><strong id="cartSubtotal">$0</strong>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-500">Discount (-20%)</span
+              ><strong id="cartDiscount" class="text-red-500">-$0</strong>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-500">Delivery Fee</span
+              ><strong id="cartDelivery">$7</strong>
+            </div>
+            <div
+              class="flex justify-between border-t border-gray-200 pt-4 text-base"
+            >
+              <span>Total</span><strong id="cartTotal">$0</strong>
+            </div>
+          </div>
+          <div class="mt-5 flex gap-2">
+            <input
+              id="promoCode"
+              type="text"
+              placeholder="Add promo code"
+              class="min-w-0 flex-1 rounded-full bg-gray-100 px-4 py-3 text-sm outline-none"
+            />
+            <button
+              id="applyPromo"
+              type="button"
+              class="rounded-full bg-black px-5 py-2 text-sm text-white"
+            >
+              Apply
+            </button>
+          </div>
+          <a
+            href="checkout.html"
+            class="mt-4 block w-full rounded-full bg-black py-3 text-center text-sm text-white"
+          >
+            Go to Checkout <span class="ml-2">-&gt;</span>
+          </a>
+        </aside>
+      </div>
+    </main>
+
+    <section id="section2" class="bg-black p-6 md:p-10"></section>
+
+    <footer id="siteFooter" class="bg-gray-100 px-6 py-8 md:px-10">
+      <div
+        class="mx-auto grid max-w-6xl gap-8 text-sm text-gray-500 md:grid-cols-[2fr_1fr_1fr_1fr_1fr]"
+      >
+        <div>
+          <img
+            src="./Assests/image/SHOP.CO.png"
+            alt="SHOP.CO"
+            class="mb-4 h-6"
+          />
+          <p class="max-w-xs">
+            We have clothes that suit your style and which you're proud to wear.
+          </p>
+        </div>
+        <div>
+          <h3 class="mb-4 font-semibold uppercase text-black">Company</h3>
+          <p>About</p>
+          <p class="mt-2">Features</p>
+          <p class="mt-2">Works</p>
+          <p class="mt-2">Career</p>
+        </div>
+        <div>
+          <h3 class="mb-4 font-semibold uppercase text-black">Help</h3>
+          <p>Customer Support</p>
+          <p class="mt-2">Delivery Details</p>
+          <p class="mt-2">Terms &amp; Conditions</p>
+          <p class="mt-2">Privacy Policy</p>
+        </div>
+        <div>
+          <h3 class="mb-4 font-semibold uppercase text-black">FAQ</h3>
+          <p>Account</p>
+          <p class="mt-2">Manage Deliveries</p>
+          <p class="mt-2">Orders</p>
+          <p class="mt-2">Payments</p>
+        </div>
+        <div>
+          <h3 class="mb-4 font-semibold uppercase text-black">Resources</h3>
+          <p>Free ebooks</p>
+          <p class="mt-2">Development Tutorial</p>
+          <p class="mt-2">How to - Blog</p>
+          <p class="mt-2">Youtube Playlist</p>
+        </div>
+      </div>
+      <p
+        class="mx-auto mt-8 max-w-6xl border-t border-gray-300 pt-5 text-xs text-gray-500"
+      >
+        Shop.co © 2000-2023, All Rights Reserved
+      </p>
+    </footer>
+
+    <script src="./header.js"></script>
+    <script src="./product.js"></script>
+    <script src="./cart.js"></script>
+    <script src="./section2.js"></script>
+    <script src="./footer.js"></script>
+  </body>
+</html>
